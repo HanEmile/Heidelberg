@@ -1,6 +1,6 @@
 # Heidelberg
 
-Display a Galaxy in Blender using a custom Star density.
+Display an elliptical Galaxy in Blender using a custom Star density function.
 
 ##### Dependencies:
 - math
