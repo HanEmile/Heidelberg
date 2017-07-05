@@ -31,8 +31,8 @@ sunmass | Sonnenmasse | 1.988435 * 10 ^ 30 | kg
 Date | Task
 --- | ---
 03.07 | - [Blender] drivers <br> - [Python] general form <br> - [Python] plot
-04.07 | - [Blender] -> switched from particles to Vertecies <br> - [Python] logarithmic x-axis <br> - [Python] "Splines"
-05.07 | - [Python] Code-Golf
+04.07 | - [Blender] -> switched from particles to Vertecies <br> - [Python] logarithmic x-axis <br> - [Python] "Splines" <br> - [Seminar] Presentation of one paper and fast presentation of multiple othe papers 
+05.07 | - [Python] Code-Golf <br> - [Python]
 ---
 
 ### Functions:
