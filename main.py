@@ -15,12 +15,12 @@ star_size = 0.5
 # constants
 pi = math.pi
 e = math.e
-G = 4.302e-3
+G = 4.302e-3 # pc (km/s)^2 / M_sol 
 
 # variables
-sigma = 200
-f_0 = 1
-R_s = 1e4
+sigma = 200 # km/s  --> velocity dispersion
+f_0 = 1 # M_sol / pc^3 --> stellar density
+R_s = 1e4 # pc  --> Scale Radius for NFW profile
 
 # lists
 lista = []
@@ -37,6 +37,34 @@ def phi(x):
     c = a * b
     return c
 
+
+def phi_3d(x,y,z):
+    r = sqrt(x**2 + y**2 + z**2)
+    a = - ( 4 * pi * G * f_0 * R_s ** 3 ) / r
+    b = np.log(1. + (r / R_s) )
+    c = a * b
+    return c
+
+def DxDxphi(x, y, z):
+    h = 0.01 # pc
+    result = phi(x+h, y, z) - 2 * phi(x, y, z) + phi(x-h, y, z)
+    result = result / h**2
+    return result
+
+def DyDyphi(x, y, z):
+    h = 0.01 # pc
+    result = phi(x, y+h, z) - 2 * phi(x, y, z) + phi(x, y-h, z)
+    result = result / h**2
+    return result
+
+def DxDyphi(x, y, z):
+    h = 0.01 # pc
+    k = 0.01 # pc
+    result = phi(x+h, y+k, z) - phi(x+h, y-k, z) - phi(x-h, y+k, z) + phi(x-h, y-k, z)
+    result = result / (4*h*k)
+    return result
+
+
 # new phi function
 # def phi_new(r, x, y):
 #     a = phi(r)
@@ -47,6 +75,12 @@ def phi(x):
 def rho(r):
     a = (1) # / (math.sqrt( 2 * pi ) * sigma )
     b = math.exp( - (phi(r) / sigma ** 2 ) )
+    c = a * b
+    return c
+
+def rho_3d(x,y,z):
+    a = (1) # / (math.sqrt( 2 * pi ) * sigma )
+    b = math.exp( - (phi(x,y,z) / sigma ** 2 ) )
     c = a * b
     return c
 
