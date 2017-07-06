@@ -12,4 +12,4 @@ Display an elliptical Galaxy in Blender using a custom Star density function.
 `python3 main.py`
 
 [Blender](https://www.blender.org),
-[more...](notes.md)
+[more...](markdown/notes.md)
