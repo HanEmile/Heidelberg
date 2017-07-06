@@ -26,7 +26,7 @@ sunmass | Sonnenmasse | 1.988435 * 10 ^ 30 | kg
 \[
   replace ~r ~with  ~ \sqrt{x^2 + y^2}
 \]
-- Gravitationskonstante -> parsec / kilo parsec
+- ~~Gravitationskonstante -> parsec / kilo parsec~~
 - rho0 -> 1
 - -rho
 - zoom out (-35, 35 -> -10^10, 10^10)
