@@ -3,8 +3,8 @@
 Display an elliptical Galaxy in Blender using a custom Star density function.
 
 ##### Dependencies:
-- math
-- matplotlib.pyplot
+- [math](https://docs.python.org/3/library/math.html)
+- [matplotlib.pyplot](http://matplotlib.org/api/pyplot_api.html)
 - numpy
 - scipy
 - [scipy.interpolate.InterpolatedUnivariateSpline](https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.InterpolatedUnivariateSpline.html)
