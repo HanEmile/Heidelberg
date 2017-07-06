@@ -16,8 +16,14 @@ Variables | `variables.py` | stores general variables
 Constants | `constants.py` | stores constants
 Heidelberg | `Heidelberg.py` | stores functions
 
-##### run with:
+##### Generate data with:
 `python3 main.py`
+
+##### Draw Histogram with:
+`python3 draw.py`
+
+##### Blender foo (WIP):
+`blender <blender-file> --python <python-file> 
 
 [Blender](https://www.blender.org),
 [more...](markdown/notes.md)
