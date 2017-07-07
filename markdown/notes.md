@@ -32,6 +32,8 @@ sunmass | Sonnenmasse | 1.988435 * 10 ^ 30 | kg
 - zoom out (-35, 35 -> -10^10, 10^10)
 - random numbers ```(max(spl(xs)), min(spl(xs)))```
   - better random approximation
+- 3D
+- Multithreading
 
 ---
 
