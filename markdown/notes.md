@@ -28,12 +28,18 @@ sunmass | Sonnenmasse | 1.988435 * 10 ^ 30 | kg
 \]
 - ~~Gravitationskonstante -> parsec / kilo parsec~~
 - rho0 -> 1
-- -rho
+- -rho (-> minus rho)
 - zoom out (-35, 35 -> -10^10, 10^10)
 - random numbers ```(max(spl(xs)), min(spl(xs)))```
   - better random approximation
 - 3D
 - Multithreading
+
+---
+### Links
+
+##### Multithreading
+- [link1](http://chriskiehl.com/article/parallelism-in-one-line/)
 
 ---
 
