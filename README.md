@@ -34,6 +34,8 @@ blender startup.blend --python read_3D.py
 ```
 
 ---
+![process](https://github.com/HanEmile/Heidelberg/blob/master/visuals/process.jpg)
+---
 
 [Blender](https://www.blender.org),
 [Python](https://www.python.org/),
