@@ -41,6 +41,26 @@ sunmass | Sonnenmasse | 1.988435 * 10 ^ 30 | kg
 ##### Multithreading
 - [link1](http://chriskiehl.com/article/parallelism-in-one-line/)
 
+
+### Tips and Tricks:
+
+###### non Multithreaded
+```python
+for i in range(x, y):
+  function(x)
+```
+
+###### Multithreaded:
+```python
+from multiprocessing import Pool
+...
+poolrange = range(x, y) # range
+pool = Pool()
+pool.map(function, poolrange) # loop
+pool.close()
+pool.join()
+```
+
 ---
 
 ### Functions:
