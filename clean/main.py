@@ -12,7 +12,7 @@ import constants
 
 # controll
 samples = int(1e3)
-stars = 500
+stars = int(1e3)
 
 # lists
 lista = []
@@ -52,35 +52,38 @@ val_min = min(arr_rho)
 
 list_rand_val = []
 
-def gen_star():
+def gen_star(i):
+
+    print("{:<3}".format(i))
+    temp_arr = [] # create temporary array
 
     for ax in axes:
         print("{:<3}".format(ax), end="")
-        rand_val = np.random.uniform(val_min, val_max, size=1)
-        list_rand_val.append(rand_val)
+        rand_val = np.random.uniform(val_min, val_max, size=1)  # random value
+        rand_pm = np.random.uniform(-1, 1, size=1)  # random plus / minus
 
         for r in range(0, len(arr_r)):
 
             if rand_val > spl(xs)[r]:
                 print("{:<20}".format( arr_r[r] ))
-
-                with open(path, "a") as data:
-
-                    if ax != 'z':
-                        data.write(str(arr_r[r]) + ',')
-                    elif ax == 'z':
-                        data.write(str(arr_r[r]))
-
+                if rand_pm > 0:
+                    temp_arr.append(arr_r[r])
+                else:
+                    temp_arr.append(-arr_r[r])
                 break
+
             else:
                 print("", end="")
 
+
     with open(path, "a") as data:
+        data.write(str(temp_arr).strip("[]"))
         data.write("\n")
 
-for _ in range(0, 1000):
-    gen_star()
+    print("")
 
+for i in range(0, stars):
+    gen_star(i)
 
 # Plot the position
 # listb.sort(reverse=True)
@@ -95,4 +98,4 @@ plt.grid(ls="--")
 plt.legend(["spl", "rho"])
 
 # display plot
-plt.show()
+# plt.show()
