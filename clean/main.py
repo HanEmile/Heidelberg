@@ -4,6 +4,7 @@ import scipy as sp
 import matplotlib.pyplot as plt
 from scipy.interpolate import InterpolatedUnivariateSpline
 import os
+from multiprocessing import Pool 
 
 # custom imports
 import heidelberg as hd
@@ -46,13 +47,13 @@ while os.path.isfile('3D/3D_data/' + str(file_nr) + '.csv') == True:
     file_nr += 1
 
 path = '3D/3D_data/' + str(file_nr) + '.csv'
-
+print(path)
 val_max = max(arr_rho)
 val_min = min(arr_rho)
 
 list_rand_val = []
 
-def gen_star():
+def gen_star(i):
 
     for ax in axes:
         print("{:<3}".format(ax), end="")
@@ -77,9 +78,11 @@ def gen_star():
 
     with open(path, "a") as data:
         data.write("\n")
-
-for _ in range(0, 1000):
-    gen_star()
+poolrange = range(1000)
+pool = Pool()
+pool.map(gen_star, poolrange)
+pool.close() 
+pool.join()
 
 
 # Plot the position
