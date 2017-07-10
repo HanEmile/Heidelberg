@@ -11,14 +11,16 @@ import variables
 import constants
 
 # controll
-samples = int(1e2)
+samples = int(1e3)
+stars = 500
 
 # lists
 lista = []
 listb = []
+axes = ["x", "y", "z"]
 
 # arrays
-arr_r = np.logspace(-2, 5, num=samples)
+arr_r = np.logspace(-5, 5, num=samples)
 arr_rho = np.zeros((samples, 1))
 
 # generate arr_rho content
@@ -34,68 +36,63 @@ x = arr_r
 y = arr_rho
 
 spl = InterpolatedUnivariateSpline(x, y)
-xs = np.logspace(-1, 4, samples)
+xs = np.logspace(-5, 5, samples)
 
-# plot spline and rho
-plt.plot(xs, spl(xs), 'g--', lw=2, alpha=0.7)
-plt.plot(arr_r, arr_rho, 'b.')
+plt.plot(spl(xs))
 
 # create new file for every calculation
 file_nr = 1
-while os.path.isfile('data/' + str(file_nr) + '.txt') == True:
+while os.path.isfile('3D/3D_data/' + str(file_nr) + '.csv') == True:
     file_nr += 1
 
-path = 'data/' + str(file_nr) + '.txt'
+path = '3D/3D_data/' + str(file_nr) + '.csv'
 
 val_max = max(arr_rho)
 val_min = min(arr_rho)
 
-print("{:<5}{:<20}{:<20}".format("i", "rand_val", "arr_r[r]" ) )
+list_rand_val = []
 
-# cycle through the numbers 1 to 1000
-for i in range(1000):
+def gen_star():
 
-    # generate a random number
-    rand_val = np.random.uniform(val_min, val_max, size=1)
-    lista.append(rand_val)
+    for ax in axes:
+        print("{:<3}".format(ax), end="")
+        rand_val = np.random.uniform(val_min, val_max, size=1)
+        list_rand_val.append(rand_val)
 
-    # print the critical information
-    print("{:<5}{:<20}".format(str(i) , str(rand_val) ), end="")
+        for r in range(0, len(arr_r)):
 
-    # cycle through the x values
-    for r in range(0, len(arr_r)):
+            if rand_val > spl(xs)[r]:
+                print("{:<20}".format( arr_r[r] ))
 
-        # if the random value is bigger than the x value print the x value
-        if rand_val > spl(xs)[r]:
+                with open(path, "a") as data:
 
-            # print(spl(xs)[r], end="")
-            print(arr_r[r])
-            listb.append(arr_r[r])
+                    if ax != 'z':
+                        data.write(str(arr_r[r]) + ',')
+                    elif ax == 'z':
+                        data.write(str(arr_r[r]))
 
-            # open a file th save the results
-            with open(path, "a") as data:
+                break
+            else:
+                print("", end="")
 
-                # write the result at the end of the file
-                data.write(str(arr_r[r]) + '\n')
+    with open(path, "a") as data:
+        data.write("\n")
 
-            # break and continue cycling eith the next value
-            break
+for _ in range(0, 1000):
+    gen_star()
 
-            # create_star(r)
-
-        else:
-            print("", end="")
 
 # Plot the position
-listb.sort(reverse=True)
-plt.plot(listb, 'bo')
+# listb.sort(reverse=True)
+# plt.plot(listb, 'bo')
 
 # Plot the random values
-plt.plot(lista, 'ro', alpha=0.7)
+# plt.plot(lista, 'ro', alpha=0.7)
 
 plt.autoscale()
 plt.xscale('log')
-plt.grid()
-plt.show()
+plt.grid(ls="--")
+plt.legend(["spl", "rho"])
 
-# print(hd.rho(42))
+# display plot
+plt.show()
