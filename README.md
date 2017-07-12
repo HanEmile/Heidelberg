@@ -1,5 +1,7 @@
 # Heidelberg
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/630b24cb270f41a384c7c357ae03f11e)](https://www.codacy.com/app/HanEmile/Heidelberg?utm_source=github.com&utm_medium=referral&utm_content=HanEmile/Heidelberg&utm_campaign=badger)
+
 Display an elliptical Galaxy in Blender using a custom Star density function.
 
 ##### Custom Dependencies:
