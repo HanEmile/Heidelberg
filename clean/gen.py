@@ -47,6 +47,7 @@ def gen_stars(stars, print_time=False):
 
     # range for stars to be created in
     range_min = -int(1e5)
+    range_max = int(1e5)
 
     # create new file for every calculation
     file_nr = 1
@@ -72,43 +73,13 @@ def gen_stars(stars, print_time=False):
             with open(path, "a") as data:
                 data.write(str(x).strip("[]") + "," + str(y).strip("[]") + "," + str(z).strip("[]") + "\n")
 
-
-    # # create random stars
-    # for r in range(0, stars):
-    #     arr_stars[r][0] = np.random.uniform(range_min, range_max, size=1)
-    #     arr_stars[r][1] = np.random.uniform(range_min, range_max, size=1)
-    #     arr_stars[r][2] = np.random.uniform(range_min, range_max, size=1)
-
-    # # apply rho function
-    # for i in range(0, len(arr_stars)):
-    #     x = round(arr_stars[i][0], 2)
-    #     y = round(arr_stars[i][1], 2)
-    #     z = round(arr_stars[i][2], 2)
-    #     r = round(math.sqrt(x**2 + y**2 + z**2), 2)
-    #     rho_val = rho(r)
-    #
-    #     listrho.append(rho_val)
-
-    # # get min / max value of rho
-    # min_list_rho = min(listrho)
-    # max_list_rho = max(listrho)
-
-    # # generation of arr_stars_keep array
-    # for i in range(len(listrho)):
-    #     rand_value = np.random.uniform(min_list_rho, max_list_rho)
-    #
-    #     # rejection sampling
-    #     if rand_value < listrho[i]:
-    #         with open(path, "a") as data:
-    #             data.write(str(arr_stars[i][0]) + "," + str(arr_stars[i][1]) + "," + str(arr_stars[i][2]) + "\n")
-
     time_all = time.time() - time_start
 
     if print_time == True:
         print("time: " + str(round(time_all, 2)) + " s")
 
 # generate n stars
-gen_stars(1e6, True)
+gen_stars(1e7, True)
 
 # create star at the given coordiantes
 # def create_star(x, y, z):
