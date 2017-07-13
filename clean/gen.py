@@ -50,6 +50,7 @@ def gen_stars(stars, print_time=False):
 
     # create new file for every calculation
     file_nr = 1
+    path = ""
     while os.path.isfile('data/' + str(file_nr) + '.csv') == True:
         file_nr += 1
 
