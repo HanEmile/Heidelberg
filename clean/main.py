@@ -1,12 +1,12 @@
-import math
-import numpy as np
-import scipy as sp
-import matplotlib.pyplot as plt
-from scipy.interpolate import InterpolatedUnivariateSpline
-import os
+import math # sqrt stuff
+import numpy as np # logspace, linspace, arrays, ...
+import scipy as sp # ...
+import matplotlib.pyplot as plt # plotting
+from scipy.interpolate import InterpolatedUnivariateSpline # interpolation / spline
+import os # file exists?
 
 # custom imports
-import heidelberg as hd
+import heidelberg as hd # functions
 import variables
 import constants
 
@@ -15,8 +15,8 @@ samples = int(1e3)
 stars = int(1e3)
 
 # lists
-lista = []
-listb = []
+lista = [] # test list nr 1
+listb = [] # test list nr 2
 axes = ["x", "y", "z"]
 
 # arrays
@@ -24,7 +24,7 @@ arr_r = np.logspace(-5, 5, num=samples)
 arr_rho = np.zeros((samples, 1))
 
 # generate arr_rho content
-for r in range(samples):
+for r in range(0, len(arr_r)):
     arr_rho[r] = hd.rho(arr_r[r])
 
 # squeez arrays to 1D
