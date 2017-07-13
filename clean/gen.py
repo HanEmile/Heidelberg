@@ -79,7 +79,7 @@ def gen_stars(stars, print_time=False):
         print("time: " + str(round(time_all, 2)) + " s")
 
 # generate n stars
-gen_stars(1e7, True)
+gen_stars(1e9, True)
 
 # create star at the given coordiantes
 # def create_star(x, y, z):
