@@ -42,8 +42,6 @@ def gen_stars(stars, print_time=False):
 
     # lists
     listrho = []
-    arr_stars = np.zeros((stars, 3))
-    arr_stars_keep = []
 
     # range for stars to be created in
     range_min = -int(1e5)
