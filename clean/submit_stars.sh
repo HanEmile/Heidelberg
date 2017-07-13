@@ -7,7 +7,7 @@ for host in $@; do
     ssh hanemile@${host}.ita.uni-heidelberg.de > /dev/null<<EOF
 cd $thisfolder
 for i in 1 2 3 4; do
-python3 gen.py&
+nohup python3 gen.py&
 done
 EOF
     echo "submitted on ${host}!"
