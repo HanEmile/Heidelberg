@@ -18,9 +18,9 @@ f_0 = 0.1
 R_s = 1e4
 
 # M..
-Mxx = 4e-6
-Mxy = -4e-6
-Myy = 8e-6
+Mxx = 8e-6
+Mxy = 0
+Myy = -8e-6
 
 # constants
 pi = math.pi
@@ -97,11 +97,7 @@ gen_stars(1e7, True)
 # 1e9 Stars: ~9       hours     (~32400 seconds)
 
 # Knockouts:
-# 1e9 Stars: ~45000
+# 1e9 Stars: -> ~45000 Stars
 
-# Errors:
-#
-# 56.csv:
-# ValueError: Some errors were detected !
-#    Line #4527 (got 1 columns instead of 3)
-# -> not enough samples ?
+# File sizes
+# 1 MB ~ 10000 Stars
