@@ -18,9 +18,9 @@ f_0 = 0.1
 R_s = 1e4
 
 # M..
-Mxx = 8e-6
-Mxy = 0
-Myy = -8e-6
+Mxx = 0
+Mxy = 1e-5
+Myy = 0
 
 # constants
 pi = math.pi
