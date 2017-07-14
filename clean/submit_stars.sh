@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#hosts: structure03 cosmo35 planet04 cosmo33 cosmo02
+#hosts: structure03 cosmo35 planet04 cosmo02 cosmo25
 
 user=$(whoami)
 thisfolder=$(pwd)
@@ -11,6 +11,7 @@ for host in $@; do
 cd $thisfolder
 for i in 1 2 3 4; do
 nohup python3 gen.py > log 2> log.err < /dev/null &
+sleep 2
 done
 EOF
     echo "submitted on ${host}!"

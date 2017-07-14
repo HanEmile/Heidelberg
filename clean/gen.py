@@ -5,6 +5,12 @@ import time
 # import bpy
 import os
 
+import socket
+host = socket.gethostname()
+
+from time import gmtime, strftime
+mytime = strftime("%H_%M_%S", gmtime())
+
 # controll
 star_size = 0.1
 
@@ -43,28 +49,21 @@ def gen_stars(stars, print_time=False):
     # lists
     listrho = []
 
-    # range for stars to be created in
-    range_min = -int(1e5)
-    range_max = int(1e5)
-
     # create new file for every calculation
-    file_nr = 1
-    path = ""
-    while os.path.isfile('data/' + str(file_nr) + '.csv') == True:
-        file_nr += 1
-
-        path = 'data/' + str(file_nr) + '.csv'
+    path = "data/" + host + "_" + mytime + ".csv"
     print("path: " + str(path))
 
-    range_min = -int(1e6)
-    range_max = int(1e6)
+    length = 1e6
+
+    range_min = -int(length)
+    range_max = int(length)
 
     # create random stars
     for r in range(0, stars):
         x = np.random.uniform(range_min, range_max, size=1)
         y = np.random.uniform(range_min, range_max, size=1)
         z = np.random.uniform(range_min, range_max, size=1)
-        rand_val = np.random.uniform(0, rho(0), size=1)
+        rand_val = np.random.uniform(rho(length), rho(0), size=1)
 
         r = math.sqrt(x**2 + y**2 + z**2)
         if rand_val < rho(r):
@@ -77,7 +76,7 @@ def gen_stars(stars, print_time=False):
         print("time: " + str(round(time_all, 2)) + " s")
 
 # generate n stars
-gen_stars(1e9, True)
+gen_stars(1e8, True)
 
 # create star at the given coordiantes
 # def create_star(x, y, z):
@@ -117,7 +116,17 @@ gen_stars(1e9, True)
 
 ################################################################################
 
-# # Benchmarks:
-# # 1e5 Stars: ~2.93   s
-# # 1e6 Stars: ~29.38  s
-# # 1e7 Stars: ~315.67  s
+# Benchmarks:
+# 1e5 Stars: ~2.93    seconds
+# 1e6 Stars: ~29.38   seconds
+# 1e7 Stars: ~315.67  seconds
+# 1e9 Stars: ~9       hours     (~32400 seconds)
+
+# Knockouts:
+# 1e9 Stars: ~45000
+
+# Errors:
+#
+# 56.csv:
+# ValueError: Some errors were detected !
+#    Line #4527 (got 1 columns instead of 3)
