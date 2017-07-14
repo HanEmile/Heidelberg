@@ -19,7 +19,7 @@ R_s = 1e4
 
 # M..
 Mxx = 0
-Mxy = 1e-5
+Mxy = 1e-6
 Myy = 0
 
 # constants
