@@ -11,7 +11,6 @@ for host in $@; do
 cd $thisfolder
 for i in 1 2 3 4; do
 nohup python3 gen.py > log 2> log.err < /dev/null &
-sleep 5
 done
 EOF
     echo "submitted on ${host}!"

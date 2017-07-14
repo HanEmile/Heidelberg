@@ -4,7 +4,6 @@ import math
 import time
 # import bpy
 import os
-
 import socket
 host = socket.gethostname()
 
@@ -50,7 +49,7 @@ def gen_stars(stars, print_time=False):
     listrho = []
 
     # create new file for every calculation
-    path = "data/" + host + "_" + mytime + ".csv"
+    path = "data/" + host + "_" + os.getpid() + ".csv"
     print("path: " + str(path))
 
     length = 1e6
