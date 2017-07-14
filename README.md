@@ -1,40 +1,28 @@
 # Heidelberg
 
-Display an elliptical Galaxy in Blender using a custom Star density function.
-
-##### Custom Dependencies:
-Name | File | Function
---- | --- | ---
-Variables | `variables.py` | stores general variables
-Constants | `constants.py` | stores constants
-Heidelberg | `Heidelberg.py` | stores functions
+Display a Galaxy in Blender using a custom Star density function.
 
 ##### Generate data with:
 ```
 cd clean/
-python3 main.py
+python3 gen.py
 ```
 
-##### Draw Histogram with:
+##### Multiple PCs:
 ```
 cd clean/
-python3 draw.py
+./submit_stars.sh <host> <host> <host> ...
 ```
 
-##### Generate 3D-Data:
+##### View Data in 3D:
 ```
-cd clean/3D/
-python3 gen_3D.py
-```
-
-##### Display 3D-Data in Blender:
-```
-cd clean/3D/
-blender startup.blend --python read_3D.py
+cd clean/
+blender startup.blend --python mesh.py
 ```
 
 ---
-![process](https://github.com/HanEmile/Heidelberg/blob/master/visuals/process.jpg)
+![process](https://github.com/HanEmile/Heidelberg/blob/master/visuals/process1.jpg)
+
 ---
 
 [Blender](https://www.blender.org),
