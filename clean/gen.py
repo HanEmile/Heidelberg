@@ -49,7 +49,7 @@ def gen_stars(stars, print_time=False):
     listrho = []
 
     # create new file for every calculation
-    path = "data/" + host + "_" + os.getpid() + ".csv"
+    path = "data/" + str(host) + "_" + str(os.getpid()) + ".csv"
     print("path: " + str(path))
 
     length = 1e6
