@@ -52,7 +52,7 @@ def gen_stars(stars, print_time=False):
     path = "data/" + str(host) + "_" + str(os.getpid()) + ".csv"
     print("path: " + str(path))
 
-    length = 1e6
+    length = 1e5
 
     range_min = -int(length)
     range_max = int(length)
@@ -75,43 +75,7 @@ def gen_stars(stars, print_time=False):
         print("time: " + str(round(time_all, 2)) + " s")
 
 # generate n stars
-gen_stars(1e8, True)
-
-# create star at the given coordiantes
-# def create_star(x, y, z):
-#     bpy.ops.mesh.primitive_cube_add( radius=star_size, location=(x, y, z) )
-#     bpy.context.object.name = "s" + str(i)
-
-# # read from newest file
-# file_nr = 1
-# while os.path.isfile('data/' + str(file_nr) + '.csv') == True:
-#     file_nr += 1
-#
-#     path = 'data/' + str(file_nr - 1) + '.csv'
-
-# data = genfromtxt(path, delimiter=',')
-
-# create stars
-# for i in range(0, len(data)):
-    # get the position data of the star
-    # x = data[i][0]
-    # y = data[i][1]
-    # z = data[i][2]
-
-    # create the star
-    # create_star(x, y, z)
-
-# file_nr = 1
-# # cycle through possible files
-# while os.path.isfile('blender_files/' + str(file_nr) + '.blend') == True:
-#     # if file allready exists, see if the next one is available
-#     file_nr += 1
-#
-# blender_file_path = 'blender_files/' + str(file_nr) + '.blend'
-# print("blender save-path: " + blender_file_path)
-
-# save the blender file
-# bpy.ops.wm.save_as_mainfile(filepath=blender_file_path)
+gen_stars(1e9, True)
 
 ################################################################################
 
@@ -129,3 +93,4 @@ gen_stars(1e8, True)
 # 56.csv:
 # ValueError: Some errors were detected !
 #    Line #4527 (got 1 columns instead of 3)
+# -> not enough samples ?
