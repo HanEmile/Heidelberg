@@ -101,3 +101,4 @@ gen_stars(5e7, True)
 
 # File sizes
 # 1 MB ~ 10000 Stars
+#
