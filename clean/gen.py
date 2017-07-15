@@ -94,7 +94,7 @@ gen_stars(5e7, True)
 # 1e5 Stars: ~2.93    seconds
 # 1e6 Stars: ~29.38   seconds
 # 1e7 Stars: ~315.67  seconds
-# 1e9 Stars: ~9       hours     (~32400 seconds)
+# 1e9 Stars: ~9       hours
 
 # Knockouts:
 # 1e9 Stars: -> ~45000 Stars
