@@ -1,0 +1,36 @@
+\documentclass[a4paper,12pt]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{lmodern}
+\usepackage{textcomp}
+
+\selectlanguage{german}
+
+\hyphenation{di-gi-tal vi-su-ali-sie-ren}
+
+\usepackage{xcolor}
+%\usepackage{sectsty}
+
+%\definecolor{Red}{HTML}{FF0000}
+%\definecolor{Green}{HTML}{00FF00}
+%\definecolor{Blue}{HTML}{0000FF}
+
+%\sectionfont{\color{Blue}}
+%\subsectiofont{\color{Red}}
+
+%Seitenabstände
+\usepackage[top=2.5cm, bottom=2.0cm, left=2.5cm, right=2.5cm]{geometry}
+
+\title{Satellite Computation}
+\subtitle{Jugend Forscht 2017}
+\date{13.01.2017}
+
+\author{
+  Emile Hansmaennel
+  \texttt{ emile.hansmaennel@gmail.com }
+}

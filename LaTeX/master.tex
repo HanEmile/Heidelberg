@@ -1,0 +1,41 @@
+\input{docs/preamble}
+
+\setlength{\footskip}{30pt}
+
+\begin{document}
+ 
+ \maketitle 
+ 
+ \begin{figure}[h]
+  \centering
+  \includegraphics[width=120mm]{figs/logo5}
+  \captionsetup{labelformat=empty}
+  \caption{}
+ \end{figure}
+ 
+ \input{docs/1.kurzfassung}
+ 
+ \thispagestyle{empty}
+ \clearpage
+ \newpage
+ \setcounter{page}{1}
+ 
+ \tableofcontents
+ \newpage
+ 
+ \section{Einleitung} \label{Einleitung}
+ \input{docs/2.einleitung}
+ \newpage
+ 
+ \section{Berechnung der Satelliten-Positionen, deren Bahnen und potentielle Kollisionen in der Zukunft} \label{Hauptteil}
+ \input{docs/3.hauptteil}
+ \newpage
+ 
+ \section{Ergebnisse} \label{ergebnisse}
+ \input{docs/4.ergebnisse}
+ \newpage
+ 
+ \section{Quellen und Hilfen} \label{quellen}
+ \input{refs/5.quellen}
+ 
+\end{document}

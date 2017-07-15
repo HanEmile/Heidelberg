@@ -1,0 +1,395 @@
+\subsection{Das TLE} \label{Das TLE}
+Um die Bahn der Satelliten zu berechnen, diese zu visualisieren und eine mögliche Kollision zu 
+erkennen, brauchte ich vor allem eines: Daten.
+Diese entnahm ich wie schon erwähnt der Webseite http://celestrak.com/ welche die Informationen in 36
+verschiedenen Kategorien im Two-Line-Element Format zur Verfügung stellt. Die Satelliten in einer Kategorie
+sind z.B. für das Mobilfunknetz zuständig\footnote{Die sogenannten Iridium Satelliten},
+eine andere Kategorie beinhaltet alle GPS-Satelliten.
+\par
+
+Das TLE Format (dt. Zwei-Zeilen-Element) indem die Bahn-Daten der Satelliten gespeichert sind, ist
+wie folgt aufgebaut:
+
+\begin{verbatim}
+  ISS (ZARYA)             
+  1 25544U 98067A   17013.60985296  .00002762  00000-0  49090-4 0  9990
+  2 25544  51.6436  88.8992 0007382  79.8867  70.6785 15.54061452 37710
+ 
+  123456789012345678901234567890123456789012345678901234567890123456789
+         1         2         3         4         5         6         7
+\end{verbatim}
+
+\bigskip
+
+Das TLE besteht aus zwei Zeilen in denen z.B. die Erste Ziffer für die
+Zeilennummer steht. 
+
+Die Folgende Tabelle zeigt was die Ziffern-Blöcke in der ersten Zeile beschreiben:
+
+\bigskip
+  
+\begin{tabular}{l|l}
+ Ziffernblock & Beschreibung: \\\hline
+ & \\
+ 1 & Zeilennummer \\[0,1cm]
+ 3-7 & Satelliten Katalog Nummer \\[0,1cm]
+ 8 & Klassifizierung \\[0,1cm]
+ 10-17 & Internationale Bezeichnung \\[0,1cm]
+ 19-20 & Jahr \\[0,1cm]
+ 21-32 & Tag (Tag Nr. 40 = 9.Februar) \\[0,1cm]
+ 25-32 & Tagesbruchteil \\[0,1cm]
+ 34-43 & Wiederstandskoeffizient im SPG-Modell \\[0,1cm]
+ 45-52 & Vernachlässigbarer Wiederstandskoeffizient im SGP-Modell\\[0,1cm]
+ 54-61 & Wiederstandskoeffizient im SPG4-Modell \\[0,1cm]
+ 63 & Ephemeridentyp \\[0,1cm]
+ 65-68 & laufende Datensatz-Nummer \\[0,1cm]
+ 69 & Prüfsumme Modulo 10 \\[0,1cm]
+ 
+\end{tabular}
+
+\bigskip
+
+In meinem Fall war der Ziffernblock 19-32 von Bedeutung, denn ausgewertet hat er mir die Zeit
+gegeben, an dem die jeweiligen Werte aufgenommen wurden. Dies war wichtig um nicht aus versehen
+mit alten Werten weiterzuarbeiten, was im Echtfall zu fatalen Folgen geführt hätte.
+Das SGP-Modell (Simplified General Perturbation model) sind Modelle zur Berechnung der sogennanten Orbitalszustandsvektoren.
+
+Die Folgende Tabelle beschreibt die zweite Zeile:
+
+\bigskip
+  
+\begin{tabular}{l|l}
+ Ziffernblock & Beschreibung: \\\hline
+ & \\
+ 1 & Zeilennummer \\[0,1cm]
+ 3-7 & Satelliten Catalog Nummer \\[0,1cm]
+ 9-16 & Inklination \\[0,1cm]
+ 18-25 & Rektazension des aufsteigenden Knotens \\[0,1cm]
+ 27-33 & Numerische Exzentrizität \\[0,1cm]
+ 35-42 & Argument des Perigäums \\[0,1cm]
+ 44-51 & Mittlere Anomalie \\[0,1cm]
+ 53-63 & Mittlere Bewegung \\[0,1cm]
+ 64-68 & Umlauf Nr. \\[0,1cm]
+ 69 & Prüfsumme Modulo 10 \\[0,1cm]
+\end{tabular}
+
+\bigskip
+
+Die zweite Zeile beinhaltet eine Menge wichtiger Werte:
+Die Inklination, die Rektazension des Aufsteigenden Knotens, die numerische Exzentrizität der
+Umlaufbahn, das Argument des Perigäums, die Mittlere Anomalie, die Mittlere Bewegung, und die
+Anzahl der Umläufe seit dem Start.
+\par
+
+\subsection{Die Achsen in Blender}
+
+\begin{figure}[h]
+ \centerline{
+ \includegraphics[height=0.5\textwidth]{figs/Achsen_w}
+ \includegraphics[height=0.5\textwidth]{figs/LokaleAchsen_w}
+ }
+ \caption{Die Achsen in Blender}
+ \label{fig:Achsen}
+\end{figure}
+
+Um im 3-Dimensionalen Raum Objekte wie in meinem Fall eine Bahn Ellipse zu rotieren, muss
+festgelegt sein wie rotiert wird. Es gibt zwei Möglichkeiten: Entweder das Objekt wird um eine
+Globale Achse gedreht, sprich egal wie das Objekt schon gedreht ist, es wird immer wieder um eine
+festgelegte Achse gedreht, oder das Objekt wird um eine Lokale Achse gedreht, wobei wie in der
+rechten Abbildung dargestellt die Achsen sich sozusagen mitdrehen.
+
+\subsection{Die Verwendung der Daten}
+
+Die Daten aus dem TLE sind vor allem da um die Lage der Bahn Ellipse im Raum zu beschreiben.
+In meinem Programm habe ich diese Daten genutzt und wie folgt eingebaut:
+\par
+Hier der Ablauf des Programms in Worte gefasst:
+\par
+Als erstes muss ein Kreis her, dieser wird
+mithilfe von Python in Blender eingefügt. Um aus dem Kreis eine Ellipse zu bekommen, muss
+der Kreis um einen bestimmten Faktor gestreckt werden. Dieser Faktor lässt sich mithilfe der
+Werte aus dem TLE ausrechnen:
+\par
+
+\begin{equation} \label{eq:semimajoraxis}
+  a = \left( \frac{6.6228}{n_0^\frac{2}{3}} * 6371 \right)
+\end{equation}
+
+\begin{equation} \label{eq:apogee}
+  \text{Apogäum} = a \cdot (1 + e_0) - 6378
+\end{equation}
+
+\begin{equation} \label{eq:perigee}
+  \text{Perigäum} = a \cdot (1 - e_0) - 6378
+\end{equation}
+
+
+Der streckfaktor an der x-Achse (Abbildung \ref{fig:Achsen}) ist gleich der Länge des
+Apogäums (\ref{eq:apogee}) wobei \( e_0 = \text{Numerische Exzentrizität} \) und 
+\( n_0 = \text{Mittlere Bewegung} \) gilt. Die Streckung an der y-Achse ist gleich der Länge des
+Perigäums (\ref{eq:perigee}):
+
+Das Ergebnis ist eine Ellipse, die jedoch noch keine Inklination besitzt. Um jedoch eine
+\textbf{Inklination} zu erzeugen, muss festgelegt werden von welcher Referenz-Ebene aus die
+Inklination ausgeht. Für die Inklination von Satelliten-Bahnen wurde festgelegt, dass als
+Referenz-Ebene die Äquator-Ebene genommen wird (Abbildung \ref{fig:BahnelementeEllipse}). Da
+die Ellipse im Ursprung des Koordinatensystems ist, kann sie einfach an der x-Achse mit dem
+wert der Inklination aus dem TLE \footnote{Der Wert wird vorher noch in Bogenmaß umgewandelt}
+rotiert werden um die Inklination darzustellen.
+\\\par
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=120mm]{figs/BahnelementeEllipse}
+  \captionsetup{labelformat=parens}
+  \caption{Die Bahn-Elemente der Ellipse}
+  \label{fig:BahnelementeEllipse}
+\end{figure}
+
+
+\textbf{Die Rektazension des Aufsteigenden Knotens} beschreibt die Drehung um die z-Achse
+(Abbildung \ref{fig:Achsen}).
+Der sogenannte aufsteigende Knoten ist der Punkt an dem die Bahn-Ellipse die Referenz-Ebene von
+Süden nach Norden durchstößt. Die Rektazension des Aufsteigenden Knotens beschreibt den Winkel
+zwischen der Strecke vom Mittelpunkt der Ellipse zum sogenannten Frühlingspunkt. Der
+Als Frühlingspunkt wird der Schnittpunkt des Äquators mit der Elliptik bezeichnet
+\footnote{Wikipedia --> Frühlingspunkt}.
+\\\par
+
+\textbf{Das Argument der Periapsis} \( \omega \) wird dazu genutzt, die Rotation der Ellipse um
+die Lokale z-Achse (Abbildung \ref{fig:Achsen}, rechts) zu beschreiben. Voraussetzung für die
+Anwendung des Argument des Perigäums ist, dass die Ellipse schon eine Inklination besitzt.
+\\\par
+
+\textbf{Die Mittlere Anomalie} beschreibt die Rotation des Satelliten relativ zu seiner
+Bahnachse. Diesen Wert habe ich erst einmal nicht in das Programm mit eingebaut, jedoch wird er
+für eine eventuelle mit einbringung der Störfaktoren wichtig.
+\\\par
+
+
+\subsection{Code} \label{Code}
+
+Das erste Teil-Ziel war es, einen Wert wie z.B. den Namen eines Satelliten zu bekommen indem
+im Code einfach die Funktion 
+
+\begin{verbatim}
+ TLE.get(``name'', category, satNr)
+\end{verbatim}
+
+ausgeführt wurde. Dies funktionierte einwandfrei und um z.B. den Wert der Inklination aller
+Satelliten aus der Iridium-Kategorie zu bekommen und einer liste hinzuzufügen wurde folgender
+Code ausgeführt:
+
+\begin{verbatim}
+01  import TLE
+02  
+03  category = "iridium"
+04  inc = []
+05  
+06  for satellite in category:
+07    inc.append(TLE.get("Inclination", category, satellite)
+\end{verbatim}
+
+Dadurch das die Daten aus dem TLE so relativ einfach abgefragt werden konnten, war es schnell
+möglich eine Bahn in Blender darzustellen, bei der sich der jeweilige Satellit auf der
+Elliptischen Bahn-Ellipse bewegt:
+
+\begin{verbatim}
+01 import TLE
+02 import bpy
+03 import math
+04 
+05 category = "iridium"
+06 inc = []
+07 satNr = 1
+08 
+09 inc.append(TLE.get("Inclination", category, satNr) * math.pi / 180)
+10 
+11 bpy.ops.mesh.primitive_circle_add(radius=1, vertices=60)
+12 bpy.context.object.name = "orbit"
+13 bpy.object.convert(target='CURVE)
+14 
+15 bpy.ops.mesh.primitive_cube_add(radius=0.1)
+16 bpy.context.object.name = "orbit sat"
+17 
+18 orbit = bpy.context.scene.objects["orbit]
+19 sat = bpy.context.scene.objects["orbit sat"]
+20 
+21 orbit.select = False
+22 sat.select = True
+23 
+24 sat.location[1] = 1
+25
+26 bpy.context.scene.objects.active = orbit
+27 bpy.ops.object.parent_set(type='FOLLOW')
+28 orbit.rotation_euler[0] = inc
+ 
+\end{verbatim}
+
+Bedeutung der Zeilen im obigen Code:
+\\\bigskip
+
+\begin{tabular}{l l}
+ Zeile & Beschreibung: \\
+ 1-3 & Import der Modul TLE (\ref{Code}), bpy (BlenderPython) und math \\
+ 5 & Definition der Kategorie \\
+ 6 & Definition der Liste zum speichern der Inklination \\
+ 7 & Definition der Nummer des Satelliten aus der Kategorie \\
+ 9 & Hinzufügen des Wertes der Inklination in Grad zur liste inc \\
+ 11 & Einfügen eines 60-eckes \footnote{Um die genauigkeit des Programms zu erhöhen können statt 60
+  Ecken 120 ecken genommen werden} in Blender mit dem Radius 1 \\
+ 12 & Umbenennung des Kreises zu ``orbit'' \\
+ 13 & Konvertierung des Kreises zu einer Kurve. \\
+ 15 & Einfügen eines Würfels, welcher den Satelliten darstellen soll \\
+ 16 & Umbenennen des Satelliten zu ``sat'' \\
+ 18-19 & Definition von ``orbit'' und ``sat'' zur einfachen Auswahl. \\
+ 21 & Abwählen der Satelliten-Bahn \\
+ 22 & Auswählen des Satelliten \\
+ 24 & Verschieben des Satelliten zu x = 1 \\
+ 26 & Die Satelliten-Bahn als aktives Objekt markieren \\ 
+ 27 & Den Satelliten an die Satelliten-Bahn mit dem Attribut 'FOLLOW' anhängen \\
+ 28 & Die Satelliten-Bahn um den Wert inc an der x-Achse neigen \\
+ 
+ 
+\end{tabular}
+\bigskip
+
+Die in Blender dargestellte Bahn war jedoch in vieler Hinsicht nicht genau: Es fehlte noch die
+Einbringung mehrerer Werte: der Wert der Rektazension des aufsteigenden Knotens, das Argument des
+Perigäums, den Wert des Apogäums / Perigäums und der Wert der Umlauf-Geschwindigkeit.
+\par
+Nachdem ich diese Werte eingebaut hatte konnte ich eine reelle Satelliten-Bahn in Blender anzeigen.
+Doch was mich störte war, dass ich ja nur einen Satelliten angezeigt bekam und die mögliche
+Kollision eines Satelliten mit einem anderem vorhersagen wollte wozu ich mehrere Satelliten
+bräuchte. 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[height=0.5\textwidth]{figs/iridium_sat_all_w}
+  \caption{Die gesamten Iridium Satelliten in Blender Visualisiert}
+  \label{fig:iridium_sat_all}
+\end{figure}
+
+Also steckte ich
+meinen Code in eine Schleife, änderte ihn leicht ab und bekam innerhalb weniger Sekunden die Bahn
+aller Satelliten in einer Kategorie angezeigt (Abbildung \ref{fig:iridium_sat_all}).
+\par
+
+\subsection{Vom 3-Dimensionalen ins 2-Dimensionale und Kollisionen}
+
+Das nächste Ziel war es, eine mögliche Kollision vorherzusagen. Eine Kollision ist dann geschehen,
+wenn zwei Objekte zu selben Zeit am selben Ort sind oder zur selben Zeit sehr nah aneinander sind.
+Eine Voraussetzung, um die Kollision zweier Objekte zu bestimmen, ist die Position der Objekte zu
+einer bestimmten Zeit zu kennen. Problematisch war, dass als ich mithilfe von Python die Position
+der Satelliten abfragen wollte, ein Fehler bekam: Da der Satellit an der Bahn hing, war ein
+auslesen der Position nicht möglich. Die löste ich indem ich den Satelliten erst von der Bahn
+``abkoppelte'', die Position aus las und ihn wieder ``ankoppelte''. Dies funktionierte wunderbar.
+Die ausgelesenen Werte speicherte ich in einer Liste die ich im Anschluss in einem
+Koordinatensystem ausgab.
+
+\begin{figure}[h]
+ \centerline{
+ \includegraphics[width=0.5\textwidth]{figs/argos_2sat_2D}
+ \includegraphics[width=0.5\textwidth]{figs/argos_2sat_3D_w}
+ }
+ \caption{Beispiel anhand von zwei Satelliten}
+ \label{fig:argos_2sat}
+\end{figure}
+
+\begin{figure}[h]
+ \centerline{
+ \includegraphics[width=0.5\textwidth]{figs/dummy_2sat_2D}
+ \includegraphics[width=0.5\textwidth]{figs/dummy_2sat_3D_w}
+ }
+ \caption{Beispiel einer Kollision (Daten künstlich hergestellt)}
+ \label{fig:dummy_2sat}
+\end{figure}
+
+In Abbildung \ref{fig:argos_2sat} ist links ein Koordinatensystem mit den Bahnen von zwei
+Satelliten aus der sogenannten ``argos'' Kategorie abgebildet, rechts sind die entsprechenden
+Bahnen im 3-Dimensionalen Raum zu sehen. Würde eine Kollision vorliegen, würden die jeweiligen
+Bahnen sich an einem Punkt kreuzen).
+\par
+Als Beispiel einer Kollision kann Abbildung \ref{fig:dummy_2sat} genommen werden, welche aus zwei
+künstlichen TLEs entstand. Da eine Kollision vorhanden ist wenn an einem Zeitpunkt
+\( x_1 - x_2 \approx 0 \; \vee \; y_1 - y_2 \approx 0 \; \vee \; z_1 - z_2 \approx 0\) erfüllt ist,
+kollidieren in diesem Beispiel die Satelliten.
+(Es ist nur ein roter Graph sichtbar, da die x werte über die ganze Zeit hinweg identisch sind).
+Der schwarze Graph beschreibt für jeden Zeitpunkt die Summe der Differenz der Position der
+jeweiligen Satelliten.
+
+\begin{figure}[h]
+ \centerline{
+ \includegraphics[width=0.5\textwidth]{figs/geo_allsat_2D}
+ \includegraphics[width=0.5\textwidth]{figs/geo_allsat_3D_w}
+ }
+ \caption{Alle geostationären Satelliten in einem Koordinatensystem}
+ \label{fig:geo_allsat}
+\end{figure}
+
+\bigskip
+
+Problematisch wird diese Methode wenn wie in Abbildung \ref{fig:geo_allsat} sehr viele Satelliten
+auf eine Mögliche Kollision überprüft werden sollen. Theoretisch muss zu jedem Zeitpunkt die
+Entfernung zwischen allen Satelliten berechnet werden. Die unten stehende Tabelle verdeutlicht
+dieses Prinzip. Genau genommen müssen nicht alle Felder berechnet werden: die Entfernung zwischen
+einem Satelliten und dem selben Satelliten ist immer 0 und die Werte im unterem Teil der
+Tabelle brauchen nicht ausgerechnet zu werden, da sie schon oben stehen \footnote{Das Ergebniss
+wird als Absoluter Wert genommen}. 
+
+\bigskip
+
+\begin{tabular}{l | l | l | l | l}
+  & sat[1][x][t] & sat[2][x][t] & sat[3][x][t] &  \\
+  & sat[1][y][t] & sat[2][y][t] & sat[3][y][t] & ... \\
+  & sat[1][z][t] & sat[2][z][t] & sat[3][z][t] &  \\\hline
+ 
+ sat[1][x][t] &  & sat[2][x][t] - sat[1][x][t] = 0 & sat[3][x][t] - sat[1][x][t] \(\neq\) 0 &  \\
+ sat[1][y][t] &  & sat[2][y][t] - sat[1][y][t] = 0 & sat[3][y][t] - sat[1][y][t] \(\neq\) 0 & ... \\
+ sat[1][z][t] &  & sat[2][z][t] - sat[1][z][t] = 0 & sat[3][z][t] - sat[1][z][t] \(\neq\) 0 &  \\\hline
+ 
+ sat[2][x][t] &  &  & sat[3][x][t] - sat[2][x][t] \(\neq\) 0 &  \\
+ sat[2][y][t] &  &  & sat[3][y][t] - sat[2][y][t] \(\neq\) 0 & ... \\
+ sat[2][z][t] &  &  & sat[3][z][t] - sat[2][z][t] \(\neq\) 0 &  \\\hline
+ 
+ sat[3][x][t] &  &  &  &  \\
+ sat[3][y][t] &  &  &  & ... \\
+ sat[3][z][t] &  &  &  &  \\\hline
+ 
+ ... & ... & ... & ... & ...
+\end{tabular}
+
+\bigskip
+
+Wenn ein Wert in der Tabelle kleiner als 1 ist, dann kann davon ausgegangen werden, dass der
+entsprechende Satellit in der Zeile mit dem Satelliten aus der Spalte kollidiert ist.
+\par
+Die Folgende Tabelle zeigt ein Beispiel:
+
+\bigskip
+
+\begin{tabular}{l | l | l | l}
+               & \(x_1=\) -2711  & \(x_2=\) -2711   & \\
+               & \(y_1=\) -18    & \(y_2=\) -15     & ... \\
+               & \(z_1=\) -6     & \(z_2=\) -12     & \\\hline
+ 
+\(x_1=\) -2711 &                 & 2711 - 2711 = 0  & \\
+\(x_1=\) -18   &                 & 18 - 15 = 3      & ...\\
+\(x_1=\) -6    &                 & 6 - 12 = 6       & \\
+               &                 & \(\sqrt[2]{0^2 + 3^2 + 6^2} \approx 6.708\) & \\\hline
+ 
+\(x_2=\) -2711 & 2711 - 2711 = 0 &                  & \\
+\(y_2=\) -15   & 15 - 18 = 3     &                  & ... \\
+\(z_2=\) -12   & 12 - 6 = 6      &                  & \\
+               & \(\sqrt[2]{0^2 + 3^2 + 6^2} \approx 6.708\)  &                  & \\\hline
+           ... & ...             & ...              & ... 
+\end{tabular}
+
+\bigskip
+
+Zu sehen ist, wie die Positionswerte der beiden Satelliten verrechnet werden und am Ende der 
+Satz des Pythargoras für den 3-Dimensionalen Raum angewendet wird:
+
+\begin{equation}
+ \sqrt[2]{(x_1 - x_2) + (y_1 - y_2) + (z_1 - z_2)}
+\end{equation}
