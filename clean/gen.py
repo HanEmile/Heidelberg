@@ -19,7 +19,7 @@ R_s = 1e4
 
 # M..
 Mxx = 0
-Mxy = 0
+Mxy = 1e-6
 Myy = 0
 
 # constants
@@ -66,11 +66,8 @@ def gen_stars(stars, print_time=False):
     range_min = -int(length)
     range_max = int(length)
 
-    # rand_min = rho_new(0, 0, 0)
-    # rand_max = rho_new(length, 0, 0)
-
-    rand_min = rho(0, 0, 0)
-    rand_max = rho(length, 0, 0)
+    rand_min = rho_new(0, 0, 0)
+    rand_max = rho_new(length, 0, 0)
 
     # create random stars
     for r in range(0, stars):
@@ -89,7 +86,7 @@ def gen_stars(stars, print_time=False):
         print("time: " + str(round(time_all, 2)) + " s")
 
 # generate n stars
-gen_stars(1e7, True)
+gen_stars(5e7, True)
 
 ################################################################################
 
