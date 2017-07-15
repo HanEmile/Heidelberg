@@ -1,11 +1,9 @@
 \select@language {ngerman}
 \contentsline {section}{\numberline {1}Einleitung}{2}{section.1}
-\contentsline {section}{\numberline {2}Berechnung der Satelliten-Positionen, deren Bahnen und potentielle Kollisionen in der Zukunft}{3}{section.2}
-\contentsline {subsection}{\numberline {2.1}Das TLE}{3}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Die Achsen in Blender}{4}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Die Verwendung der Daten}{5}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Programm Code f\IeC {\"u}r Python}{6}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}Vom 3-Dimensionalen ins 2-Dimensionale zu Kollisionen}{8}{subsection.2.5}
-\contentsline {section}{\numberline {3}Ergebnisse}{12}{section.3}
-\contentsline {section}{\numberline {4}Quellen und Hilfen}{13}{section.4}
-\contentsline {paragraph}{\nonumberline Herrn J\IeC {\"o}rg Thar}{13}{section*.10}
+\contentsline {subsection}{\numberline {1.1}Galaxien, Dark Matter bla bla}{2}{subsection.1.1}
+\contentsline {section}{\numberline {2}Generieren einer elliptischen Galaxie}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}NFW Stuff}{3}{subsection.2.1}
+\contentsline {section}{\numberline {3}Ergebnisse}{4}{section.3}
+\contentsline {subsection}{\numberline {3.1}Eigenes Zeug}{4}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Thales Zeug}{4}{subsection.3.2}
+\contentsline {section}{\numberline {4}Quellen und Hilfen}{5}{section.4}
