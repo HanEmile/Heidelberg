@@ -66,8 +66,11 @@ def gen_stars(stars, print_time=False):
     range_min = -int(length)
     range_max = int(length)
 
-    rand_min = rho_new(0, 0, 0)
-    rand_max = rho_new(length, 0, 0)
+    # rand_min = rho_new(0, 0, 0)
+    # rand_max = rho_new(length, 0, 0)
+
+    rand_min = rho(0)
+    rand_max = rho(length)
 
     # create random stars
     for r in range(0, stars):
@@ -76,7 +79,7 @@ def gen_stars(stars, print_time=False):
         z = np.random.uniform(range_min, range_max, size=1)
         rand_val = np.random.uniform(rand_min, rand_max, size=1)
 
-        if rand_val < rho_new(x, y, z):
+        if rand_val < rho(x, y, z):
             with open(path, "a") as data:
                 data.write(str(x).strip("[]") + "," + str(y).strip("[]") + "," + str(z).strip("[]") + "\n")
 
