@@ -67,7 +67,7 @@ def gen_stars(stars, print_time=False):
     range_max = int(length)
 
     rand_min = rho_new(0, 0, 0)
-    rand_max = rho_new(length, length, length)
+    rand_max = rho_new(length, 0, 0)
 
     # create random stars
     for r in range(0, stars):
