@@ -19,7 +19,7 @@ R_s = 1e4
 
 # M..
 Mxx = 0
-Mxy = 5e-6
+Mxy = 8e-6
 Myy = 0
 
 # constants
@@ -61,7 +61,7 @@ def gen_stars(stars, print_time=False):
     path = "data/" + str(host) + "_" + str(os.getpid()) + ".csv"
     print("path: " + str(path))
 
-    length = 1e6
+    length = 5e6
 
     range_min = -int(length)
     range_max = int(length)
