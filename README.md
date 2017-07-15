@@ -21,8 +21,25 @@ blender startup.blend --python mesh.py
 ```
 
 ---
-![process](https://github.com/HanEmile/Heidelberg/blob/master/visuals/process1.jpg)
+### Workflow (kang):
 
+- on local:
+  - modify gen.py
+  - `$ git add gen.py`
+  - `$ git commit -m "..."`
+  - `$ git push`
+- on cosmo5:
+  - `$ git pull`
+  - `$ ./submit_stars_12core.sh kang`
+- (optional) on kang:
+  - `$ top` 
+- on local:
+  - `$ ./get_results_kang.sh kang<x>`
+  - modify mesh.py to use the kang<x> data
+  - `$ blender startup.blend --python mesh.py`
+
+---
+![process](https://github.com/HanEmile/Heidelberg/blob/master/visuals/process1.jpg)
 ---
 
 [Blender](https://www.blender.org),
