@@ -1,11 +1,10 @@
 #!/bin/bash
 
-#hosts: structure03 cosmo35 planet04 cosmo02 cosmo25
-
+myhosts=$(cat freie_rechner.dat)
 user=$(whoami)
 thisfolder=$(pwd)
 
-for host in $@; do
+for host in $myhosts; do
     cd $thisfolder
     ssh ${user}@${host}.ita.uni-heidelberg.de > /dev/null 2> /dev/null <<EOF
 cd $thisfolder
