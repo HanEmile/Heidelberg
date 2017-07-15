@@ -61,7 +61,7 @@ def gen_stars(stars, print_time=False):
     path = "data/" + str(host) + "_" + str(os.getpid()) + ".csv"
     print("path: " + str(path))
 
-    length = 5e6
+    length = 1.5e6
 
     range_min = -int(length)
     range_max = int(length)
