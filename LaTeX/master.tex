@@ -1,5 +1,26 @@
-\input{docs/preamble}
+\documentclass[a4paper,12pt]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage[hidelinks]{hyperref}
 
+%\selectlanguage{german}
+
+\hyphenation{di-gi-tal vi-su-ali-sie-ren}
+
+%Seitenabstände
+\usepackage[top=2.5cm, bottom=2.0cm, left=2.5cm, right=2.5cm]{geometry}
+
+\title{{\fontsize{30}{20}\selectfont Generieren und Darstellung von verschiedenen Galaxienmodellen}}
+\subtitle{Praktikumsbericht}
+
+\author{ Emile Hansmaennel \footnote{\url{ emile.hansmaennel@gmail.com }}}
+\date{\today}
 \setlength{\footskip}{30pt}
 
 \begin{document}
@@ -8,13 +29,12 @@
  
  \begin{figure}[h]
   \centering
-  \includegraphics[width=120mm]{figs/logo5}
+  \includegraphics[height=40mm]{figs/hd_logo_standard_16cm_rgb.png}\hfill
+  \includegraphics[height=40mm]{figs/zah-logo-bgtrans-eps-converted-to.pdf}
   \captionsetup{labelformat=empty}
   \caption{}
  \end{figure}
- 
- \input{docs/1.kurzfassung}
- 
+  
  \thispagestyle{empty}
  \clearpage
  \newpage
@@ -24,18 +44,23 @@
  \newpage
  
  \section{Einleitung} \label{Einleitung}
- \input{docs/2.einleitung}
+\subsection{Galaxien, Dark Matter bla bla}
+
  \newpage
  
- \section{Berechnung der Satelliten-Positionen, deren Bahnen und potentielle Kollisionen in der Zukunft} \label{Hauptteil}
- \input{docs/3.hauptteil}
+ \section{Generieren einer elliptischen Galaxie} \label{Hauptteil}
+\subsection{NFW Stuff}
+\subsection{}
+
  \newpage
  
  \section{Ergebnisse} \label{ergebnisse}
- \input{docs/4.ergebnisse}
+\subsection{Eigenes Zeug}
+\subsection{Thales Zeug}
+
  \newpage
  
  \section{Quellen und Hilfen} \label{quellen}
- \input{refs/5.quellen}
+
  
 \end{document}

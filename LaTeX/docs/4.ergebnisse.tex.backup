@@ -1,4 +1,0 @@
-Das Ergebniss des Projektes ist erfreulich: Es ist möglich mithilfe des Python Programmes die
-Satellitenbahnen aller Satelliten in Blender mithilfe der TLEs aus dem Internet darzustellen,
-sowohl 2-Dimensional als auch 2-Dimensional. Die Vorhersage von eventuellen Kollisionen ist
-ebenfalls möglich, jedoch bisher nur mit einer begranzten Anzahl an Satelliten.
