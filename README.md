@@ -21,6 +21,24 @@ blender startup.blend --python mesh.py
 ```
 
 ---
+
+### Workflow:
+
+- on local:
+  - modify gen.py
+  - `$ git add gen.py`
+  - `$ git commit -m "..."`
+  - `$ git push`
+- on cosmo5:
+  - `$ git pull`
+  - `$ ./submit_stars.sh freie_rechner.dat`
+- (optional) on remote:
+  - `$ top`
+- on local:
+  - `$ ./get_results.sh <name><x>`
+  - modify mesh.py to use the name x data
+  - `$ blender startup.blend --python mesh.py`
+
 ### Workflow (kang):
 
 - on local:
@@ -32,7 +50,7 @@ blender startup.blend --python mesh.py
   - `$ git pull`
   - `$ ./submit_stars_12core.sh kang`
 - (optional) on kang:
-  - `$ top` 
+  - `$ top`
 - on local:
   - `$ ./get_results_kang.sh kang<x>`
   - modify mesh.py to use the kang<x> data
